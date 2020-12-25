@@ -24,6 +24,8 @@ dependencies:
 
 library:
   source-dirs: src
+  dependencies:
+    - containers
 
 executables:
   bot-exe:
@@ -37,6 +39,7 @@ executables:
     - bot
     - req
     - aeson
+    - containers
 
 tests:
   bot-test:

@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 7934eea4edbfbe6ce5fa239bb52473fc6d7476b5ff5269482d89f73f998eb393
+-- hash: 18a518879e834464a17cd19c063d18d734d497e6b551fdb77c3f9681f8d02ee7
 
 name:           bot
 version:        0.1.0.0
@@ -34,6 +34,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , containers
   default-language: Haskell2010
 
 executable bot-exe
@@ -47,6 +48,7 @@ executable bot-exe
       aeson
     , base >=4.7 && <5
     , bot
+    , containers
     , req
   default-language: Haskell2010
 
