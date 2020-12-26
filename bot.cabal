@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 18a518879e834464a17cd19c063d18d734d497e6b551fdb77c3f9681f8d02ee7
+-- hash: 55ece39d7a77962168ade8189e9850af1ea4936ab40e043cb01f64bea7519db7
 
 name:           bot
 version:        0.1.0.0
@@ -27,7 +27,12 @@ source-repository head
 
 library
   exposed-modules:
+      Action
+      Config
+      Input
       Lib
+      Model.User
+      Settings
   other-modules:
       Paths_bot
   hs-source-dirs:
