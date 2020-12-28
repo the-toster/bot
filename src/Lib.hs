@@ -3,16 +3,26 @@ module Lib
         innerMain
     ) where
 
-import Settings
-import qualified Input as Input
+import Config.Settings
+import qualified Input
 import Model.Message 
+import Tg.Message 
+import Model.User
+
 import Action
+import Model.MessageHandler
 
 
 innerMain :: IO ()
 innerMain = do
-    let (actions, settings) = someFunc (initialSettings 1) Input.TgMessage
+    let (actions, settings) = handle someMessage (initialSettings 1 "Hi, say /repeats to set repeats number")
     mapM_ print actions
 
-someFunc :: Settings -> Input.Input -> ([Action], Settings)
-someFunc settings input = ([SendHttpRequest, WriteLog LogRecord ], settings)
+
+someMessage :: TgMessage
+someMessage = TgMessage
+                    (Just "123") 
+                    (TgUser "123") 
+                    (TgUser "321")
+                    "Body"
+                    Nothing 

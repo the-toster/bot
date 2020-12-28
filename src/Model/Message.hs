@@ -1,6 +1,16 @@
-{-# LANGUAGE DuplicateRecordFields #-}
 module Model.Message where
 
-data TgMessage = TgMessage {chatId :: String, payload :: String } deriving Show
+import Config.Settings
+import Model.User
 
-data VkMessage = VkMessage {chatId :: String, payload :: String } deriving Show
+class Message m where
+    isHelpRequest       :: m -> Bool 
+    isSettingsRequest   :: m -> Bool 
+    isSettingsResponse  :: m -> Settings -> Bool
+    updateSettings      :: m -> Settings -> Settings
+
+    helpMessage         :: m -> Settings -> m
+    settingsMessage     :: m -> Settings -> m
+    echoMessage         :: m -> m
+    
+    getAuthor           :: m -> User

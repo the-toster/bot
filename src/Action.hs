@@ -1,6 +1,5 @@
 module Action where
 
+import qualified LogRecord as Log
 
-import LogRecord
-
-data Action = SendHttpRequest | WriteLog LogRecord deriving Show
+data Action m = SendMessage m | WriteLog Log.Record deriving Show
