@@ -1,13 +1,18 @@
 module Lib
     (
-        someFunc,
-        Action(name)
+        innerMain
     ) where
 
 import Settings
-import Input
+import qualified Input as Input
+import Model.Message 
 import Action
 
 
-someFunc :: Settings -> Input -> ([Action], Settings)
-someFunc settings input = ([Action "wer", Action "spot"], settings)
+innerMain :: IO ()
+innerMain = do
+    let (actions, settings) = someFunc (initialSettings 1) Input.TgMessage
+    mapM_ print actions
+
+someFunc :: Settings -> Input.Input -> ([Action], Settings)
+someFunc settings input = ([SendHttpRequest, WriteLog LogRecord ], settings)

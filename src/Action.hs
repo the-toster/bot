@@ -1,3 +1,6 @@
 module Action where
 
-data Action = SendTgMessage | SendVkMessage | WriteLog
+
+import LogRecord
+
+data Action = SendHttpRequest | WriteLog LogRecord deriving Show

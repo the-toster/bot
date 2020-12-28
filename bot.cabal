@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 55ece39d7a77962168ade8189e9850af1ea4936ab40e043cb01f64bea7519db7
+-- hash: 3d55af69cc2938b4fa927ece291ebf127630df1b8c1924862ba06b62140ef4a3
 
 name:           bot
 version:        0.1.0.0
@@ -31,6 +31,9 @@ library
       Config
       Input
       Lib
+      LogRecord
+      MessageHandler
+      Model.Message
       Model.User
       Settings
   other-modules:
