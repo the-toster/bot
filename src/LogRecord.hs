@@ -1,9 +1,9 @@
 module LogRecord where
 
 data Level = Error | Warning | Info | Debug deriving (Eq, Ord, Show)
-newtype Message = Message String deriving Show
+newtype Message = Message String deriving (Eq, Show)
 
-data Record = Record Level Message deriving Show
+data Record = Record Level Message deriving (Eq, Show)
 
 logRecord :: Level -> String -> Record
 logRecord l s = Record l (Message s)

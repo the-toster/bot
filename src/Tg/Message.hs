@@ -11,7 +11,7 @@ data TgMessage = TgMessage {
         to :: User,
         body :: String,
         copyOf :: Maybe String
-        } deriving Show
+        } deriving (Show, Eq)
 
 instance Message TgMessage where
     isHelpRequest       :: TgMessage -> Bool
