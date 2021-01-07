@@ -12,8 +12,8 @@ data Settings = Settings {
         defaultRepeatsNumber :: Int,
         usersSettings :: Map.Map User UserSettings,
         helpMessage :: String 
-        }
-data UserSettings = UserSettings {repeats :: Int, isRepeatsDialogActive :: Bool }
+        } deriving (Show, Eq)
+data UserSettings = UserSettings {repeats :: Int, isRepeatsDialogActive :: Bool } deriving (Show, Eq)
 
 initialSettings :: Int -> String -> Settings
 initialSettings n s = Settings n Map.empty s
