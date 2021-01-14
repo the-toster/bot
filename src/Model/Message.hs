@@ -6,11 +6,11 @@ import Model.User
 class Message m where
     isHelpRequest       :: m -> Bool 
     isSettingsRequest   :: m -> Bool 
-    isSettingsResponse  :: m -> Settings -> Bool
-    updateSettings      :: m -> Settings -> Settings
+    isSettingsResponse  :: m -> Bool
+    extractRepeats      :: m -> Maybe Int
 
-    helpMessage         :: m -> Settings -> m
-    settingsMessage     :: m -> Settings -> m
+    helpMessage         :: m -> String -> m
+    settingsMessage     :: m -> String -> m
     echoMessage         :: m -> m
     
     getAuthor           :: m -> User

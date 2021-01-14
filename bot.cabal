@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c3d381cff6c1105f36c282fc06af08a50291c28f963238bd60402fc28ea94a2f
+-- hash: 7155525ea6f091b0779be4de9a4cc85e447461f8ffe9ad40396a280d1124dd83
 
 name:           bot
 version:        0.1.0.0
@@ -30,6 +30,7 @@ library
       Action
       Config.Config
       Config.Settings
+      Config.UserSettings
       Input
       Lib
       LogRecord

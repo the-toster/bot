@@ -20,19 +20,17 @@ instance Message TgMessage where
     isSettingsRequest   :: TgMessage -> Bool 
     isSettingsRequest m = body m == "/repeats"
 
-    isSettingsResponse  :: TgMessage -> Settings -> Bool
-    isSettingsResponse m s = body m == "4"
+    isSettingsResponse  :: TgMessage -> Bool
+    isSettingsResponse m = body m == "4"
 
-    updateSettings      :: TgMessage -> Settings -> Settings
-    updateSettings m s = case (readMaybe (body m) :: Maybe Int) of 
-        Just a -> setRepeats s (getAuthor m) a
-        Nothing -> s
+    extractRepeats      :: TgMessage -> Maybe Int
+    extractRepeats m = readMaybe (body m)
 
-    helpMessage         :: TgMessage -> Settings -> TgMessage
-    helpMessage m s = TgMessage Nothing (to m) (from m) (Config.Settings.helpMessage s) Nothing
+    helpMessage         :: TgMessage -> String -> TgMessage
+    helpMessage m text = TgMessage Nothing (to m) (from m) text Nothing
 
-    settingsMessage     :: TgMessage -> Settings -> TgMessage
-    settingsMessage m s = TgMessage Nothing (to m) (from m) "set repeats number" Nothing
+    settingsMessage     :: TgMessage -> String -> TgMessage
+    settingsMessage m text = TgMessage Nothing (to m) (from m) text Nothing
 
     echoMessage         :: TgMessage -> TgMessage
     echoMessage m = TgMessage Nothing (to m) (from m) "" (messageId m)

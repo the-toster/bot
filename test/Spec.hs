@@ -1,7 +1,7 @@
 import Test.Hspec
 import Model.MessageHandler
 import Model.Message
-import Config.Settings
+import Config.Settings 
 import Tg.Message
 import Model.User
 import Action
@@ -17,18 +17,18 @@ main =  hspec $ do
   describe "handle help message" $ do
     let inpMes = inputMessage "/help"
     it "should return help message" $
-      fst (handle inpMes settings) `shouldBe` [SendMessage (Model.Message.helpMessage inpMes settings)]
+      fst (handle inpMes settings) `shouldBe` [SendMessage (Model.Message.helpMessage inpMes "Hi, say /repeats to set repeats number")]
 
   describe "handle settings message" $ do
     let inpMes = inputMessage "/repeats"
     it "should return settings dialog" $
-      fst (handle inpMes settings) `shouldBe` [SendMessage (Model.Message.settingsMessage inpMes settings)]
+      fst (handle inpMes settings) `shouldBe` [SendMessage (Model.Message.settingsMessage inpMes "Select repeats number")]
     it "should change user state" $
-      snd (handle inpMes settings) `shouldBe` (initialSettings 2 "todo: settings type 123")
+      snd (handle inpMes settings) `shouldBe` enableDialog settings (getAuthor inpMes)
     
 
 settings :: Settings
-settings = initialSettings 2 "Hi, say /repeats to set repeats number"
+settings = initiateSettings 2 "Hi, say /repeats to set repeats number" "Select repeats number"
 
 
 inputMessage :: String -> TgMessage

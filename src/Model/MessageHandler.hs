@@ -9,12 +9,21 @@ import Action
 
 
 handle :: (Message m) => m -> Settings -> ([Action m], Settings)
-handle m s | isHelpRequest m        = ([SendMessage $ Model.Message.helpMessage m s], s)
-           | isSettingsRequest m    = ([SendMessage $ settingsMessage m s], s)
-           | isSettingsResponse m s = let s' = updateSettings m s in ([logRepeatsSettingsUpdate m s'], s')
+handle m s | isHelpRequest m        = ([SendMessage $ Model.Message.helpMessage m (helpMessageText s) ], s)
+           | isSettingsRequest m    = ([SendMessage $ settingsMessage m (settingsMessageText s)], enableDialog s (getAuthor m))
+           | isDialogActive s (getAuthor m) && isSettingsResponse m = let s' = updateSettings m s in ([logRepeatsSettingsUpdate m s'], s')
            | otherwise              = (repeatMessage m s, s)
     where
         repeatMessage m s = replicate (getRepeats s (getAuthor m)) (SendMessage $ echoMessage m) 
         logRepeatsSettingsUpdate m s = WriteLog $ Log.info ("Set repeats to " ++ show currentRepeats ++ " for " ++ show user) where
             currentRepeats = getRepeats s user
             user  = getAuthor m
+
+
+updateSettings :: (Message m) => m -> Settings -> Settings 
+updateSettings m s = let 
+        repeats = extractRepeats m
+        author = getAuthor m
+        in case repeats of
+            Just n -> setRepeats s author n
+            Nothing -> s

@@ -15,7 +15,7 @@ import Model.MessageHandler
 
 innerMain :: IO ()
 innerMain = do
-    let (actions, settings) = handle someMessage (initialSettings 1 "Hi, say /repeats to set repeats number")
+    let (actions, settings) = handle someMessage (initiateSettings 1 "Hi, say /repeats to set repeats number" "Select repeats number")
     mapM_ print actions
 
 
