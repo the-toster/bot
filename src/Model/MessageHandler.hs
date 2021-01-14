@@ -6,12 +6,12 @@ import Model.Message
 import qualified LogRecord as Log
 import Action
 
-
-
 handle :: (Message m) => m -> Settings -> ([Action m], Settings)
-handle m s | isHelpRequest m        = ([SendMessage $ Model.Message.helpMessage m (helpMessageText s) ], s)
+handle m s | isHelpRequest m        = ([responseText m (helpMessageText s) ], s)
            | isSettingsRequest m    = ([SendMessage $ settingsMessage m (settingsMessageText s)], enableDialog s (getAuthor m))
-           | isDialogActive s (getAuthor m) && isSettingsResponse m = let s' = updateSettings m s in ([logRepeatsSettingsUpdate m s'], s')
+           | isDialogActive s (getAuthor m) && isSettingsResponse m = let 
+                s' = updateSettings m s 
+                in ([logRepeatsSettingsUpdate m s', responseText m "OK"], s')
            | otherwise              = (repeatMessage m s, s)
     where
         repeatMessage m s = replicate (getRepeats s (getAuthor m)) (SendMessage $ echoMessage m) 
@@ -19,6 +19,8 @@ handle m s | isHelpRequest m        = ([SendMessage $ Model.Message.helpMessage 
             currentRepeats = getRepeats s user
             user  = getAuthor m
 
+responseText :: Message m => m -> String -> Action m
+responseText m t = SendMessage $ textMessage m t
 
 updateSettings :: (Message m) => m -> Settings -> Settings 
 updateSettings m s = let 

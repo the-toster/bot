@@ -26,8 +26,8 @@ instance Message TgMessage where
     extractRepeats      :: TgMessage -> Maybe Int
     extractRepeats m = readMaybe (body m)
 
-    helpMessage         :: TgMessage -> String -> TgMessage
-    helpMessage m text = TgMessage Nothing (to m) (from m) text Nothing
+    textMessage         :: TgMessage -> String -> TgMessage
+    textMessage m text = TgMessage Nothing (to m) (from m) text Nothing
 
     settingsMessage     :: TgMessage -> String -> TgMessage
     settingsMessage m text = TgMessage Nothing (to m) (from m) text Nothing

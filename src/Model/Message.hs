@@ -9,7 +9,7 @@ class Message m where
     isSettingsResponse  :: m -> Bool
     extractRepeats      :: m -> Maybe Int
 
-    helpMessage         :: m -> String -> m
+    textMessage         :: m -> String -> m
     settingsMessage     :: m -> String -> m
     echoMessage         :: m -> m
     
