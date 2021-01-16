@@ -29,13 +29,14 @@ main =  hspec $ do
 
   describe "handle settings response" $ do
     let inpMes = inputMessage "4"
-    it "should return settings dialog" $
-      fst (handle inpMes settings) `shouldBe` [
+    let settings' = enableDialog settings (getAuthor inpMes)
+    it "should respond with OK message" $
+      fst (handle inpMes settings') `shouldBe` [
           WriteLog $ Log.info "Set repeats to 4 for TgUser \"author\"",
           SendMessage (textMessage inpMes "OK")
         ]
     it "should change user state" $
-      snd (handle inpMes settings) `shouldBe` setRepeats settings (getAuthor inpMes) 4
+      snd (handle inpMes settings') `shouldBe` setRepeats settings (getAuthor inpMes) 4
     
 
 

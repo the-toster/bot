@@ -21,7 +21,7 @@ instance Message TgMessage where
     isSettingsRequest m = body m == "/repeats"
 
     isSettingsResponse  :: TgMessage -> Bool
-    isSettingsResponse m = body m == "4"
+    isSettingsResponse m = case extractRepeats m of {Nothing -> False; Just _-> True}
 
     extractRepeats      :: TgMessage -> Maybe Int
     extractRepeats m = readMaybe (body m)

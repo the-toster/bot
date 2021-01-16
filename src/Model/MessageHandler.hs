@@ -27,5 +27,5 @@ updateSettings m s = let
         repeats = extractRepeats m
         author = getAuthor m
         in case repeats of
-            Just n -> setRepeats s author n
+            Just n -> disableDialog (setRepeats s author n) author
             Nothing -> s
